@@ -1,5 +1,6 @@
 package com.example.shuweizhao.mywokba;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,7 +10,7 @@ import android.view.ViewGroup;
 /**
  * Created by shuweizhao on 3/12/16.
  */
-public class MapFragment extends android.support.v4.app.Fragment{
+public class MapFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
