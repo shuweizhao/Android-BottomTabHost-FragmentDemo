@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyWokba</string>
+    <string name="map">Wokba</string>
+    <string name="order">Order</string>
+    <string name="shake">Shake</string>
+    <string name="profile">profile</string>
+</resources>
