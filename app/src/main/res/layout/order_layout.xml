@@ -2,24 +2,41 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/current_order"
+        android:id="@+id/current_order" />
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/current_order_list"
+            android:layout_below="@+id/current_order"
+            android:layout_alignParentStart="true">
+        </ListView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/order_history"
+        android:id="@+id/order_history"
+        android:layout_alignBottom="@+id/current_order_list"
+        android:layout_alignParentStart="true" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/order_history_list"
+        android:layout_below="@+id/current_order_list"
+        android:layout_alignParentStart="true">
+    </ListView>
+
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical" >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_star_24dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:padding="10dp"
-            android:text="这是order界面"
-            android:textSize="20sp" />
-    </LinearLayout>
+        android:id="@+id/button"
+        android:src="@drawable/ic_thumbs_up_down_24dp"
+        android:layout_alignParentBottom="true"
+        android:background ="@color/colorFloatingButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"/>
 </RelativeLayout>

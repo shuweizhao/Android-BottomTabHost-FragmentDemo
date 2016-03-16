@@ -2,6 +2,8 @@
     <string name="app_name">MyWokba</string>
     <string name="map">Wokba</string>
     <string name="order">Order</string>
-    <string name="shake">Shake</string>
+    <string name="messages">Messages</string>
     <string name="profile">Profile</string>
+    <string name="current_order"> Current Order</string>
+    <string name="order_history">Order History</string>
 </resources>

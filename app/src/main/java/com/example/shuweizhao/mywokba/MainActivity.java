@@ -1,21 +1,26 @@
 package com.example.shuweizhao.mywokba;
 
+import android.Manifest;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.OnMapReadyCallback;
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener, OnMapReadyCallback{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback,LocationSource.OnLocationChangedListener {
     private FragmentManager fragmentManager;
 
     private GoogleMap mgoogleMap;
@@ -63,10 +68,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         shakeImage = (ImageView) findViewById(R.id.tab_shake_image);
         profileImage = (ImageView) findViewById(R.id.tab_profile_image);
 
-        mapText = (TextView)findViewById(R.id.tab_map_text);
-        orderText = (TextView)findViewById(R.id.tab_order_text);
-        shakeText = (TextView)findViewById(R.id.tab_shake_text);
-        profileText = (TextView)findViewById(R.id.tab_profile_text);
+        mapText = (TextView) findViewById(R.id.tab_map_text);
+        orderText = (TextView) findViewById(R.id.tab_order_text);
+        shakeText = (TextView) findViewById(R.id.tab_shake_text);
+        profileText = (TextView) findViewById(R.id.tab_profile_text);
 
         mapLayout.setOnClickListener(this);
         orderLayout.setOnClickListener(this);
@@ -78,7 +83,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.tab_map_layout :
+            case R.id.tab_map_layout:
                 setTabSelection(0);
                 break;
             case R.id.tab_order_layout:
@@ -97,49 +102,45 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         clearSelection();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         hideFragment(fragmentTransaction);
-        switch(id) {
-            case 0 :
+        switch (id) {
+            case 0:
                 mapLayout.setBackgroundColor(Color.parseColor("#03A9F4"));
                 mapText.setTextColor(Color.WHITE);
                 if (mapFragment == null) {
                     mapFragment = MapFragment.newInstance();
                     fragmentTransaction.add(R.id.content, mapFragment);
-                }
-                else {
+                } else {
                     fragmentTransaction.show(mapFragment);
                 }
                 mapFragment.getMapAsync(this);
                 break;
-            case 1 :
+            case 1:
                 orderLayout.setBackgroundColor(Color.parseColor("#03A9F4"));
                 orderText.setTextColor(Color.WHITE);
                 if (orderFragment == null) {
                     orderFragment = new OrderFragment();
                     fragmentTransaction.add(R.id.content, orderFragment);
-                }
-                else {
+                } else {
                     fragmentTransaction.show(orderFragment);
                 }
                 break;
-            case 2 :
+            case 2:
                 shakeLayout.setBackgroundColor(Color.parseColor("#03A9F4"));
                 shakeText.setTextColor(Color.WHITE);
                 if (shakeFragment == null) {
                     shakeFragment = new ShakeFragment();
                     fragmentTransaction.add(R.id.content, shakeFragment);
-                }
-                else {
+                } else {
                     fragmentTransaction.show(shakeFragment);
                 }
                 break;
-            case 3 :
+            case 3:
                 profileLayout.setBackgroundColor(Color.parseColor("#03A9F4"));
                 profileText.setTextColor(Color.WHITE);
                 if (profileFragment == null) {
                     profileFragment = new ProfileFragment();
                     fragmentTransaction.add(R.id.content, profileFragment);
-                }
-                else {
+                } else {
                     fragmentTransaction.show(profileFragment);
                 }
                 break;
@@ -174,13 +175,31 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mgoogleMap = googleMap;
-        LatLng sydney = new LatLng(-34, 151);
-        mgoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mgoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mgoogleMap.setMyLocationEnabled(true);
+        } else {
+
+            Toast.makeText(this, "failure in acquiring the permission", Toast.LENGTH_SHORT).show();
+
+            return;
+            // Show rationale and request permission.
+        }
+
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
 }
