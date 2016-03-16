@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 public class ProfileFragment extends android.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.map_layout, container, false);
+        View rootView = inflater.inflate(R.layout.profile_layout, container, false);
         return rootView;
     }
 }

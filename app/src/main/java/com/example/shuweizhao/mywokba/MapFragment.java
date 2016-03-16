@@ -11,6 +11,7 @@ import android.view.ViewGroup;
  * Created by shuweizhao on 3/12/16.
  */
 public class MapFragment extends Fragment{
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -18,4 +19,5 @@ public class MapFragment extends Fragment{
         View rootView = inflater.inflate(R.layout.map_layout, container, false);
         return rootView;
     }
+
 }

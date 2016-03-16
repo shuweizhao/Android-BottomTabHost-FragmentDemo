@@ -4,17 +4,24 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class MainActivity extends FragmentActivity implements View.OnClickListener, OnMapReadyCallback{
     private FragmentManager fragmentManager;
 
-    private MapFragment mapFragment;
+    private GoogleMap mgoogleMap;
+
+
+    private com.google.android.gms.maps.MapFragment mapFragment;
     private OrderFragment orderFragment;
     private ShakeFragment shakeFragment;
     private ProfileFragment profileFragment;
@@ -37,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         initView();
         fragmentManager = getFragmentManager();
@@ -45,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+
         mapLayout = (RelativeLayout) findViewById(R.id.tab_map_layout);
         orderLayout = (RelativeLayout) findViewById(R.id.tab_order_layout);
         shakeLayout = (RelativeLayout) findViewById(R.id.tab_shake_layout);
@@ -94,12 +102,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mapLayout.setBackgroundColor(Color.parseColor("#03A9F4"));
                 mapText.setTextColor(Color.WHITE);
                 if (mapFragment == null) {
-                    mapFragment = new MapFragment();
+                    mapFragment = MapFragment.newInstance();
                     fragmentTransaction.add(R.id.content, mapFragment);
                 }
                 else {
                     fragmentTransaction.show(mapFragment);
                 }
+                mapFragment.getMapAsync(this);
                 break;
             case 1 :
                 orderLayout.setBackgroundColor(Color.parseColor("#03A9F4"));
@@ -164,5 +173,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mgoogleMap = googleMap;
+        LatLng sydney = new LatLng(-34, 151);
+        mgoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mgoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
 
 }
