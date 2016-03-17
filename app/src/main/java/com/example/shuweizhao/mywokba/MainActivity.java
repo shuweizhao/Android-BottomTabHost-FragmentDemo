@@ -7,8 +7,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -20,7 +20,7 @@ import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback,LocationSource.OnLocationChangedListener {
+public class MainActivity extends FragmentActivity implements View.OnClickListener, OnMapReadyCallback,LocationSource.OnLocationChangedListener {
     private FragmentManager fragmentManager;
 
     private GoogleMap mgoogleMap;
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         initView();
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
         fragmentManager = getFragmentManager();
         setTabSelection(0);
     }
